@@ -106,6 +106,6 @@ public class CreateArena extends Subcommand {
 
 
 
-        //ArenaManager.save();
+        ArenaManager.save();
     }
 }

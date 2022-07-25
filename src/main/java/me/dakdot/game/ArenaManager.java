@@ -2,14 +2,13 @@ package me.dakdot.game;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import me.dakdot.game.entity.GameEntity;
-import me.dakdot.game.entity.GeneratorEntity;
-import me.dakdot.game.entity.PlatformEntity;
-import me.dakdot.game.entity.ShopEntity;
+import me.dakdot.game.entity.*;
 import me.dakdot.game.serialization.*;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.Location;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.BoundingBox;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -31,13 +30,17 @@ public class ArenaManager {
     public void init() {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
+        //builder.registerTypeHierarchyAdapter(ConfigurationSerializable.class, new SerializableTypeAdapter());
         builder.registerTypeHierarchyAdapter(Location.class, new LocationTypeAdapter());
         builder.registerTypeHierarchyAdapter(ItemStack.class, new ItemStackTypeAdapter());
+        builder.registerTypeHierarchyAdapter(BoundingBox.class, new BoundingBoxTypeAdapter());
 
         builder.registerTypeHierarchyAdapter(GameEntity.class, new GameEntityTypeAdapter());
         builder.registerTypeHierarchyAdapter(PlatformEntity.class, new PlatformEntityTypeAdapter());
         builder.registerTypeHierarchyAdapter(GeneratorEntity.class, new GeneratorEntityTypeAdapter());
         builder.registerTypeHierarchyAdapter(ShopEntity.class, new ShopEntityTypeAdapter());
+        builder.registerTypeHierarchyAdapter(UpgradeEntity.class, new UpgradeEntityTypeAdapter());
+        builder.registerTypeHierarchyAdapter(CoinGeneratorEntity.class, new CoinGeneratorEntityTypeAdapter());
         gson = builder.create();
 
         folder = new File(Main.plugin.getDataFolder(), "arenas");

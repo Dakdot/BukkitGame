@@ -13,15 +13,14 @@ public class PlatformEntityTypeAdapter implements JsonSerializer<PlatformEntity>
         Location location = jsonDeserializationContext.deserialize(o.get("location"), Location.class);
         Location spawnLocation = jsonDeserializationContext.deserialize(o.get("spawnLocation"), Location.class);
 
-        PlatformEntity e = new PlatformEntity(o.getAsString(), location, spawnLocation);
-        return e;
+        return new PlatformEntity(o.get("name").getAsString(), location, spawnLocation);
     }
 
     @Override
     public JsonElement serialize(PlatformEntity e, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject res = new JsonObject();
-        //res.addProperty("name", e.getName());
         res.addProperty("type", e.getClass().getName());
+        res.addProperty("name", e.getName());
         res.add("location", jsonSerializationContext.serialize(e.getLocation()));
         res.add("spawnLocation", jsonSerializationContext.serialize(e.getSpawnLocation()));
         return res;

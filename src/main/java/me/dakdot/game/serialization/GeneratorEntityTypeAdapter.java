@@ -16,15 +16,15 @@ public class GeneratorEntityTypeAdapter implements JsonSerializer<GeneratorEntit
         Location spawnLocation = jsonDeserializationContext.deserialize(o.get("spawnLocation"), Location.class);
         Material material = jsonDeserializationContext.deserialize(o.get("material"), Material.class);
 
-        GeneratorEntity e = new GeneratorEntity(o.getAsString(), location, spawnLocation, material);
+        GeneratorEntity e = new GeneratorEntity(o.get("name").getAsString(), location, spawnLocation, material);
         return e;
     }
 
     @Override
     public JsonElement serialize(GeneratorEntity e, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject res = new JsonObject();
-        //res.addProperty("name", e.getName());
         res.addProperty("type", e.getClass().getName());
+        res.addProperty("name", e.getName());
         res.add("location", jsonSerializationContext.serialize(e.getLocation()));
         res.add("spawnLocation", jsonSerializationContext.serialize(e.getSpawnLocation()));
         res.add("material", jsonSerializationContext.serialize(e.getMaterial()));

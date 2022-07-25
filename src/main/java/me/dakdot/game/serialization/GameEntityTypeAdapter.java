@@ -26,8 +26,10 @@ public class GameEntityTypeAdapter implements JsonSerializer<GameEntity>, JsonDe
 
     @Override
     public JsonElement serialize(GameEntity gameEntity, Type type, JsonSerializationContext jsonSerializationContext) {
+        System.out.println("Serializing " + gameEntity.getName());
         JsonObject o = jsonSerializationContext.serialize(gameEntity, gameEntity.getClass()).getAsJsonObject();
         o.addProperty("type", gameEntity.getClass().getName());
+        o.addProperty("name", gameEntity.getName());
         return o;
     }
 }
