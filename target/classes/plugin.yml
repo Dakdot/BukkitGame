@@ -1,8 +1,0 @@
-name: "BukkitGame"
-version: "1.0.0-SNAPSHOT"
-main: me.dakdot.game.Main
-api-version: 1.18
-
-commands:
-  game:
-    aliases: g
